@@ -1,0 +1,47 @@
+<!DOCTYPE PlaneworldML>
+<object type="rigidbody">
+    <core
+        kinematics_reference="Earth"
+        name="Sputnik"
+        mass="83.6"
+        origin_x="0.0"
+        origin_y="6954607.812238137"
+        dynamics="true"
+        gravity="true"
+        velocity_x="-7064.774995603303"
+        velocity_y="0.0"
+    />
+    <body_core
+        angle="90.0"
+        angle_velocity="0.0582033957033957"
+        inertia="100.0"
+    />
+    <shape
+        type="shape_circle"
+        radius="0.29"
+        center_x="0.0"
+        center_y="0.0">
+        <visuals type="shape_visuals_circle"/>
+    </shape>
+    <shape
+        type="shape_polyline"
+        line_type="single"
+        points=" -0.29,  0.0;
+                 -0.50, -1.5;">
+        <visuals type="shape_visuals_polyline"/>
+    </shape>
+    <shape
+        type="shape_polyline"
+        line_type="single"
+        points="  0.00,  0.0;
+                  0.00, -1.6;">
+        <visuals type="shape_visuals_polyline"/>
+    </shape>
+    <shape
+        type="shape_polyline"
+        line_type="single"
+        points="  0.29,  0.0;
+                  0.50, -1.5;">
+        <visuals type="shape_visuals_polyline"/>
+    </shape>
+</object>

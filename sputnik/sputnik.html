@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sputnik Orbit Calculation</title>
+
+    <style></style>
+
+    <script src="https://cdn.jsdelivr.net/vue/latest/vue.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/3.0.0/math.min.js" type="text/javascript"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML.js">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        }
+      });
+    </script>
+
+    <script>
+      var data ={};
+      data.earth= {};
+      data.earth.mass=5.97219e+24;
+      data.earth.angle_v= 2*math.pi/(24*60*60);
+      data.sputnik= {};
+      data.sputnik.mass=83.6;
+      data.sputnik.t=96.2*60;
+      data.G=6.67408e-11;
+      
+      window.addEventListener('load', function () {
+        new Vue({
+          el: '#app',
+          data: data,
+          computed: {
+            result: function() {
+              result={};
+              result.sputnik={};
+              result.earth={};
+              result.earth.angle_v_deg=data.earth.angle_v*180/math.pi;
+              result.sputnik.angle_v = 2.0*math.pi/data.sputnik.t-data.earth.angle_v;
+              result.sputnik.angle_v_deg=result.sputnik.angle_v*180/math.pi;
+              result.sputnik.r= math.nthRoot( math.pow(data.sputnik.t/2.0/math.pi,2) * (data.G * data.earth.mass) , 3);
+              
+              result.sputnik.V= math.sqrt(data.G*data.earth.mass / result.sputnik.r );
+              result.sputnik.V= data.earth.angle_v*result.sputnik.r-result.sputnik.V;
+              return result;
+            }
+          }
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="app">
+      <h1>Satellite orbiting earth (satellite mass neglected)</h1>
+      <h2>Parameters</h2>
+      Earth Mass: $m_E$=<input v-model="earth.mass">kg<br>
+      Earth Angle Velocity: $\alpha_E$=<input v-model="earth.angle_v">rad/s ({{result.earth.angle_v_deg }}deg/s)<br>
+      Satellite Orbiting Period: $t_S$=<input v-model="sputnik.t">s<br>
+    
+      $$r_S =\sqrt[3]{ G m_P \left( \frac{t}{2\pi} \right)^2 } $$
+      $$v_S = \frac{2 \pi r}{t} $$
+
+      Satellite has an orbit of $r_S$={{result.sputnik.r}} with speed of $v_S$={{result.sputnik.V}}m/s relative to earth. It has a angle velocity of {{result.sputnik.angle_v}}rad/s ({{result.sputnik.angle_v_deg}}deg/s).
+  
+
+    </div>
+  
+  </body>
+</html>
