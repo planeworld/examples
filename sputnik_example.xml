@@ -14,7 +14,7 @@
   <camera
     hook="Sputnik"
     enable_angle_hook="true"
-    angle="-90.0"
+    angle__deg="-90.0"
     position_x="0.0"
     position_y="0.0"
     m_per_px="0.1"
