@@ -1,0 +1,29 @@
+<!DOCTYPE PlaneworldML>
+<universe
+  procedural_generation="true"
+  seed="1072"
+  number_of_stars="10000"
+>
+  <gravity
+    vec_x="0.0"
+    vec_y="0.0"
+  />
+  <config file="gravityturn/config.xml"/>
+  
+  <!-- Create the active camera -->
+  <camera
+    hook="RocketBody"
+    enable_angle_hook="true"
+    position_x="0.0"
+    position_y="0.0"
+    viewport_width="600.0"
+    viewport_height="400.0"
+    m_per_px="1000"
+  />
+  
+  <!-- Create thruster components -->
+
+ 
+  <object file="gravityturn/earth.xml" />
+  <object file="gravityturn/rocket_body.xml"/>
+</universe>
