@@ -1,0 +1,19 @@
+<!DOCTYPE PlaneworldML>
+<universe>
+  <config file="sunlight/config.xml"/>
+  
+  <!-- Create the active camera -->
+  <camera
+    hook="Sunlight"
+    enable_angle_hook="true"
+    angle__deg="0.0"
+    position_x="0.0"
+    position_y="0.0"
+    m_per_px="10000000"
+  />
+  
+  <object file="sunlight/sun.xml"/>
+  <object file="sunlight/earth.xml" />
+  <object file="sunlight/sunlight.xml" />
+
+</universe>
