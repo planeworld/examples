@@ -1,0 +1,22 @@
+<!DOCTYPE PlaneworldML>
+<universe>
+  <config file="jpl_data/config.xml"/>
+  
+  <!-- Create the active camera -->
+  <camera
+    position_x="0.0"
+    position_y="0.0"
+    m_per_px="100000000.0"
+  />
+  
+  <object file="jpl_data/sun.xml" />
+  <object file="jpl_data/mercury.xml" />
+  <object file="jpl_data/venus.xml" />
+  <object file="jpl_data/earth.xml" />
+  <object file="jpl_data/mars.xml" />
+  <object file="jpl_data/jupiter.xml" />
+  <object file="jpl_data/saturn.xml" />
+  <object file="jpl_data/uranus.xml" />
+  <object file="jpl_data/neptune.xml" />
+
+</universe>

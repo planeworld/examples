@@ -1,0 +1,22 @@
+<!DOCTYPE PlaneworldML>
+<object type="rigidbody">
+    <core
+        name="europa"
+        mass="4.797e+22"
+        origin_x="-340998131307.7393"
+        origin_y="705393952604.7217"
+        velocity_x="-8694.850559046692"
+        velocity_y="-18761.07310551589"
+        dynamics="true"
+        gravity="true"
+    />
+    <body_core
+    />
+    <shape
+        type="shape_circle"
+        radius="1565000"
+        center_x="0.0"
+        center_y="0.0">
+        <visuals type="shape_visuals_circle"/>
+    </shape>
+</object>

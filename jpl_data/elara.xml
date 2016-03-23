@@ -1,0 +1,22 @@
+<!DOCTYPE PlaneworldML>
+<object type="rigidbody">
+    <core
+        name="elara"
+        mass="undefined"
+        origin_x="-334893430407.7792"
+        origin_y="698929947171.0736"
+        velocity_x="-15123.806724914304"
+        velocity_y="-4865.572082088997"
+        dynamics="true"
+        gravity="true"
+    />
+    <body_core
+    />
+    <shape
+        type="shape_circle"
+        radius="40000"
+        center_x="0.0"
+        center_y="0.0">
+        <visuals type="shape_visuals_circle"/>
+    </shape>
+</object>

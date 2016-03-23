@@ -1,0 +1,22 @@
+<!DOCTYPE PlaneworldML>
+<object type="rigidbody">
+    <core
+        name="callisto"
+        mass="1076"
+        origin_x="-342427463238.89185"
+        origin_y="705815364561.7795"
+        velocity_x="-5744.046458175686"
+        velocity_y="-5485.356902960009"
+        dynamics="true"
+        gravity="true"
+    />
+    <body_core
+    />
+    <shape
+        type="shape_circle"
+        radius="2403000"
+        center_x="0.0"
+        center_y="0.0">
+        <visuals type="shape_visuals_circle"/>
+    </shape>
+</object>

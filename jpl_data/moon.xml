@@ -1,0 +1,22 @@
+<!DOCTYPE PlaneworldML>
+<object type="rigidbody">
+    <core
+        name="moon"
+        mass="7.349e+22"
+        origin_x="-93436982025.9187"
+        origin_y="-119242871291.81195"
+        velocity_x="22208.678790884045"
+        velocity_y="-18237.79814985306"
+        dynamics="true"
+        gravity="true"
+    />
+    <body_core
+    />
+    <shape
+        type="shape_circle"
+        radius="1737530"
+        center_x="0.0"
+        center_y="0.0">
+        <visuals type="shape_visuals_circle"/>
+    </shape>
+</object>

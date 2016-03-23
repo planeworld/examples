@@ -1,0 +1,23 @@
+<!DOCTYPE PlaneworldML>
+<object type="rigidbody">
+    <core
+        name="mercury"
+        mass="3.302e+23"
+        origin_x="-37037365920.25637"
+        origin_y="34009865269.316273"
+        velocity_x="-37948.54173746507"
+        velocity_y="-30146.78569954514"
+        dynamics="true"
+        gravity="true"
+    />
+    <body_core
+        angle_velocity="0.0000012400130301098858"
+    />
+    <shape
+        type="shape_circle"
+        radius="2440000"
+        center_x="0.0"
+        center_y="0.0">
+        <visuals type="shape_visuals_circle"/>
+    </shape>
+</object>

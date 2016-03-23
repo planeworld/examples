@@ -1,0 +1,22 @@
+<!DOCTYPE PlaneworldML>
+<object type="rigidbody">
+    <core
+        name="himalia"
+        mass="undefined"
+        origin_x="-339131844221.3997"
+        origin_y="715441382151.1093"
+        velocity_x="-8178.89194635937"
+        velocity_y="-2756.841171134466"
+        dynamics="true"
+        gravity="true"
+    />
+    <body_core
+    />
+    <shape
+        type="shape_circle"
+        radius="85000"
+        center_x="0.0"
+        center_y="0.0">
+        <visuals type="shape_visuals_circle"/>
+    </shape>
+</object>
