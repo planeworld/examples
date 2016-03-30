@@ -1,0 +1,28 @@
+<!DOCTYPE PlaneworldML>
+<object type="rigidbody">
+    <core
+        kinematics_reference="Earth"
+        name="RocketBody"
+        mass="1290000.0"
+        origin_x="0.0"
+        origin_y="6378.20e3"
+        dynamics="true"
+        gravity="true"
+        velocity_x="0.08168482814662271"
+        velocity_y="1.0"
+    />
+    <body_core
+        angle_velocity="0.0"
+        angle="0.0"
+        inertia="10000000.0"
+    />
+    <shape
+        type="shape_polyline"
+        line_type="loop"
+        points=" -2.5, -2.5;
+                  2.5, -2.5;
+                  2.5,  2.5;
+                 -2.5,  2.5;">
+        <visuals type="shape_visuals_polyline"/>
+    </shape>
+</object>

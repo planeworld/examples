@@ -1,0 +1,35 @@
+<!DOCTYPE PlaneworldML>
+<!-- Create planet earth -->
+<object type="rigidbody">
+    <core
+        name="Earth"
+        mass="5.974e24"
+        origin_x="0.0"
+        origin_y="0.0"
+        dynamics="true"
+        gravity="true"
+        velocity_x="0.0"
+    />
+    <body_core
+        angle_velocity="0.000"
+        inertia="8.0e37"
+    />
+    <shape
+        type="shape_planet"
+        radius="6378.16e3"
+        height_max="8000.0"
+        sea_level="-0.2"
+        ground_resolution="0.001"
+        center_x="0.0"
+        center_y="0.0">
+        <visuals type="shape_visuals_planet"/>
+    </shape>
+    <!-- Create Launch Pad on Earth -->
+    <shape
+        type="shape_polyline"
+        line_type="strip"
+        points="-1000.0,  6378.16e3;
+                 1000.0,  6378.16e3">
+        <visuals type="shape_visuals_polyline"/>
+    </shape>
+</object>
