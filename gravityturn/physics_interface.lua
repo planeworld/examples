@@ -10,11 +10,8 @@ ObjectRef["name2"] = "Earth"
 F=42674763.50438778-100.0
 thrust=true
 
-constants = {};
-constants.G = 6.67384e-11;
-
 function getOrbitVelocity(radius, mass)
-  return math.sqrt(constants.G * mass / radius)
+  return math.sqrt(pw.universe.G * mass / radius)
 end
 
 
