@@ -8,7 +8,7 @@
         origin_y="6378.20e3"
         dynamics="true"
         gravity="true"
-        velocity_x="0.000000000000001"
+        velocity_x="0.08168482814662271"
         velocity_y="1.0"
     />
     <body_core
