@@ -1,73 +1,92 @@
 
-F_x_max=5000.0
+objects = {}
+objects.rocket = {}
+objects.rocket.mass = pw.universe.get_mass("RocketBody");
+objects.rocket.inertia = pw.universe.get_inertia("RocketBody");
 
-Object = {}
-Object["name"] = "RocketBody"
 
-ObjectRef = {}
-ObjectRef["name2"] = "Earth"
+time=0.0;
+-- Assumption, is updated each calculation
+frequency=33.33333
 
-F=42674763.50438778-100.0
-thrust=true
+pw.system.pause()
+
+P2=2.0*frequency*0.03;
+P1=objects.rocket.inertia*frequency/12.0*0.1
+
+controller = function(phi, omega)
+  local w=0.5;
+  local phi_current = pw.universe.get_angle("RocketBody")
+  local phi_e=phi-phi_current;
+  local omega_phi=P2*phi_e
+  local omega_phi_current=pw.universe.get_angle_vel("RocketBody")
+  local omega_e=w*omega_phi+(1-w)*omega-omega_phi_current
+  io.write("phi_e=" .. phi .. "-" .. phi_current .. "\n")
+  io.write("omega_e=" .. omega .. "-" .. omega_phi_current .. "\n")
+  
+  return P1*omega_e;
+end
+
+earth_mass=pw.universe.get_mass("Earth");
 
 function getOrbitVelocity(radius, mass)
   return math.sqrt(pw.universe.G * mass / radius)
 end
 
-
-
+phi_v_old=0.0;
+thrust=true;
 
 function physics_interface()
+    physics_frequency = pw.system.get_frequency()
+    luatime=pw.universe.get_time()-time;
+    time=pw.universe.get_time();
+    frequency=1.0/luatime;
+
+    v_x, v_y = pw.universe.get_velocity("RocketBody");
+    phi_v=math.atan(v_y, v_x)-math.pi/2.0;
     
-    frequency = pw.system.get_frequency()
-    Frametime = 1.0/frequency
-    
-    Object["p_x"], Object["p_y"] = pw.universe.get_position(Object["name"])
-    Object["v_x"], Object["v_y"] = pw.universe.get_velocity(Object["name"])
-    earth_mass=pw.universe.get_mass("Earth");
-    rocket_mass=pw.universe.get_mass("RocketBody");
-   
-    v_abs=math.sqrt(Object["v_x"]^2+Object["v_y"]^2)
-    r_abs=math.sqrt(Object["p_x"]^2+Object["p_y"]^2)
+    p_x, p_y = pw.universe.get_position("RocketBody");
+    r_abs=math.sqrt(p_x^2+p_y^2)
     e_r= {}
-    e_r["x"]=Object["p_x"]/r_abs
-    e_r["y"]=Object["p_y"]/r_abs
+    e_r["x"]=p_x/r_abs
+    e_r["y"]=p_y/r_abs
     e_phi ={}
     e_phi.x= e_r.y;
     e_phi.y=-e_r.x;
-    v_r=e_r["x"]*Object["v_x"]+e_r["y"]*Object["v_y"]
-    v_phi=e_phi["x"]*Object["v_x"]+e_phi["y"]*Object["v_y"]
-    
-    
-    F_x=F/v_abs*Object["v_x"]
-    F_y=F/v_abs*Object["v_y"]
+    v_r=e_r["x"]*v_x+e_r["y"]*v_y
+    v_phi=e_phi["x"]*v_x+e_phi["y"]*v_y
+    io.write("Orbit Velocity at height " .. r_abs .. "m: ".. getOrbitVelocity(r_abs, earth_mass) .. "\n")
+    io.write("Current Velocity: ".. v_phi .. "m/s, " .. v_r .. "m/s\n");
 
+    omega=(phi_v-phi_v_old)*frequency;
+    
     
     if thrust then
-      if v_r>=0 then
-        pw.universe.apply_force(Object["name"], F_x, F_y , 0.0, 0.0)
+      F=controller(phi_v, 0.0);
+      io.write("Force:  ", F, "\n")
+
+      if F >= 0 then
+        pw.sim.deactivate_thruster("ControllerThrusterClockwiseRight")
+        pw.sim.deactivate_thruster("ControllerThrusterClockwiseLeft")
+        pw.sim.activate_thruster("ControllerThrusterCounterClockwiseRight", F/2.0)
+        pw.sim.activate_thruster("ControllerThrusterCounterClockwiseLeft", F/2.0)
       else
+        pw.sim.deactivate_thruster("ControllerThrusterCounterClockwiseRight")
+        pw.sim.deactivate_thruster("ControllerThrusterCounterClockwiseLeft")
+        pw.sim.activate_thruster("ControllerThrusterClockwiseRight", -F/2.0)
+        pw.sim.activate_thruster("ControllerThrusterClockwiseLeft", -F/2.0)
+      end
+
+      if v_r<0.0 then
         thrust=false
-        io.write("Engine stopped at ", r_abs,"m \n")
-        io.write("V=(",v_phi, ",", v_r ,")\n");
-        io.write(getOrbitVelocity(r_abs, earth_mass), "m/s \n");
+        pw.sim.deactivate_thruster("ControllerThrusterCounterClockwiseRight")
+        pw.sim.deactivate_thruster("ControllerThrusterCounterClockwiseLeft")
+        pw.sim.deactivate_thruster("ControllerThrusterClockwiseRight")
+        pw.sim.deactivate_thruster("ControllerThrusterClockwiseLeft")
+        pw.sim.deactivate_thruster("MainThruster")
+        pw.sim.deactivate_thruster("BoosterRight")
+        pw.sim.deactivate_thruster("BoosterLeft")
       end
     end
-    
---     if not thrust then
---       v_phi_soll=getOrbitVelocity(r_abs, earth_mass)
---       F_r=-v_r*rocket_mass/Frametime*1.1;
---       F_phi=0.0
--- --       (v_phi_soll-v_phi)*rocket_mass/Frametime*0.1;
---       
---       F_x=e_r["x"]*F_r+e_phi["x"]*F_phi;
---       F_y=e_r["y"]*F_r+e_phi["y"]*F_phi;
---       
---       pw.universe.apply_force(Object["name"], F_x, F_y , 0.0, 0.0)
---       io.write("Korrekturschub: ", F_phi, " ", F_r," \n")
---       io.write("Height: ", r_abs,"m \n")
---     end
-    
+    phi_v_old=phi_v;
 end
-
-

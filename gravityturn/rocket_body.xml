@@ -8,21 +8,42 @@
         origin_y="6378.20e3"
         dynamics="true"
         gravity="true"
-        velocity_x="0.08168482814662271"
-        velocity_y="1.0"
+        velocity_x="0.0"
+        velocity_y="0.0"
     />
     <body_core
+        angle="-0.0002741"
         angle_velocity="0.0"
-        angle="0.0"
         inertia="10000000.0"
     />
     <shape
         type="shape_polyline"
         line_type="loop"
-        points=" -2.5, -2.5;
-                  2.5, -2.5;
-                  2.5,  2.5;
-                 -2.5,  2.5;">
+        points=" -2.7, -27.0;
+                  2.7, -27.0;
+                  2.7,  18.0;
+                  0.0,  27.0;
+                 -2.7,  18.0">
         <visuals type="shape_visuals_polyline"/>
     </shape>
+    <shape
+        type="shape_polyline"
+        line_type="loop"
+        points=" -2.7, -27.0;
+                 -5.7, -27.0;
+                 -5.7,   0.0;
+                 -4.2,   4.0;
+                 -2.7,   0.0;">
+        <visuals type="shape_visuals_polyline"/>
+    </shape>
+    <shape
+        type="shape_polyline"
+        line_type="loop"
+        points="  2.7, -27.0;
+                  5.7, -27.0;
+                  5.7,   0.0;
+                  4.2,   4.0;
+                  2.7,   0.0;">
+        <visuals type="shape_visuals_polyline"/>
+    </shape>    
 </object>

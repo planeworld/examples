@@ -18,12 +18,18 @@
     position_y="0.0"
     viewport_width="600.0"
     viewport_height="400.0"
-    m_per_px="1000"
+    m_per_px="10"
   />
   
   <!-- Create thruster components -->
-
- 
+  <component file="gravityturn/controller_thruster_counterclockwise_right.xml" />
+  <component file="gravityturn/controller_thruster_clockwise_right.xml" />
+  <component file="gravityturn/controller_thruster_counterclockwise_left.xml" />
+  <component file="gravityturn/controller_thruster_clockwise_left.xml" />
+  <component file="gravityturn/main_thruster.xml" />
+  <component file="gravityturn/booster_left.xml" />
+  <component file="gravityturn/booster_right.xml" />
+  
   <object file="gravityturn/earth.xml" />
   <object file="gravityturn/rocket_body.xml"/>
 </universe>
