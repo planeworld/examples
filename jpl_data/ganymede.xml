@@ -1,0 +1,22 @@
+<!DOCTYPE PlaneworldML>
+<object type="rigidbody">
+    <core
+        name="ganymede"
+        mass="1482"
+        origin_x="-340786724342.36487"
+        origin_y="704891254884.0381"
+        velocity_x="-14497.425245268178"
+        velocity_y="-11636.16393628534"
+        dynamics="true"
+        gravity="true"
+    />
+    <body_core
+    />
+    <shape
+        type="shape_circle"
+        radius="2634000"
+        center_x="0.0"
+        center_y="0.0">
+        <visuals type="shape_visuals_circle"/>
+    </shape>
+</object>

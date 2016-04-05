@@ -1,0 +1,23 @@
+<!DOCTYPE PlaneworldML>
+<object type="rigidbody">
+    <core
+        name="saturn"
+        mass="5.68319e+26"
+        origin_x="-955621663975.0981"
+        origin_y="-1133240385877.9236"
+        velocity_x="7131.899381709694"
+        velocity_y="-6502.237237534969"
+        dynamics="true"
+        gravity="true"
+    />
+    <body_core
+        angle_velocity="0.000163785"
+    />
+    <shape
+        type="shape_circle"
+        radius="60268000"
+        center_x="0.0"
+        center_y="0.0">
+        <visuals type="shape_visuals_circle"/>
+    </shape>
+</object>

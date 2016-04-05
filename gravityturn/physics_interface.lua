@@ -11,7 +11,6 @@ frequency=33.33333
 
 pw.system.pause()
 
-
 P2=2.0*frequency*0.03;
 P1=objects.rocket.inertia*frequency/12.0*0.1
 

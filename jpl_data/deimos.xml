@@ -1,0 +1,22 @@
+<!DOCTYPE PlaneworldML>
+<object type="rigidbody">
+    <core
+        name="deimos"
+        mass="1800000000000000"
+        origin_x="-195065781480.3834"
+        origin_y="-135454321287.18497"
+        velocity_x="16648.570269499294"
+        velocity_y="-18032.348315316667"
+        dynamics="true"
+        gravity="true"
+    />
+    <body_core
+    />
+    <shape
+        type="shape_circle"
+        radius="7800"
+        center_x="0.0"
+        center_y="0.0">
+        <visuals type="shape_visuals_circle"/>
+    </shape>
+</object>

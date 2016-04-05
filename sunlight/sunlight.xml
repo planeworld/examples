@@ -1,0 +1,26 @@
+<!DOCTYPE PlaneworldML>
+<object type="rigidbody">
+    <core
+        kinematics_reference=""
+        name="Sunlight"
+        mass="1.0"
+        origin_x="696300000.0"
+        origin_y="0.0"
+        dynamics="true"
+        gravity="false"
+        velocity_x="299792458.0"
+        velocity_y="0.0"
+    />
+    <body_core
+        angle__deg="0.0"
+        angle_velocity="0.0"
+        inertia="1.0"
+    />
+    <shape
+        type="shape_polyline"
+        line_type="single"
+        points=" -299792458.0,  0.0;
+                          0.0, 0.0;">
+        <visuals type="shape_visuals_polyline"/>
+    </shape>
+</object>

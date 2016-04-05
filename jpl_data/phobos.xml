@@ -1,0 +1,22 @@
+<!DOCTYPE PlaneworldML>
+<object type="rigidbody">
+    <core
+        name="phobos"
+        mass="10800000000000000"
+        origin_x="-195074831316.27084"
+        origin_y="-135440983676.26471"
+        velocity_x="17591.31840970459"
+        velocity_y="-18081.161291289827"
+        dynamics="true"
+        gravity="true"
+    />
+    <body_core
+    />
+    <shape
+        type="shape_circle"
+        radius="13100"
+        center_x="0.0"
+        center_y="0.0">
+        <visuals type="shape_visuals_circle"/>
+    </shape>
+</object>

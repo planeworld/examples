@@ -1,0 +1,23 @@
+<!DOCTYPE PlaneworldML>
+<object type="rigidbody">
+    <core
+        name="venus"
+        mass="4.8685e+24"
+        origin_x="64071003154.02987"
+        origin_y="-88101377192.08041"
+        velocity_x="28335.89812495124"
+        velocity_y="20579.892384573817"
+        dynamics="true"
+        gravity="true"
+    />
+    <body_core
+        angle_velocity="-2.992449223677638e-7"
+    />
+    <shape
+        type="shape_circle"
+        radius="6051800"
+        center_x="0.0"
+        center_y="0.0">
+        <visuals type="shape_visuals_circle"/>
+    </shape>
+</object>
