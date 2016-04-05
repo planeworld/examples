@@ -59,10 +59,16 @@ function physics_interface()
     io.write("Current Velocity: ".. v_phi .. "m/s, " .. v_r .. "m/s\n");
 
     omega=(phi_v-phi_v_old)*frequency;
-    
+--     if (v_r<0.0001) then
+--       pw.system.pause()
+--     end
+--     if (v_phi>getOrbitVelocity(r_abs, earth_mass)) then
+--       pw.system.pause()
+--     end
+      
     
     if thrust then
-      F=controller(phi_v, 0.0);
+      F=controller(phi_v, omega);
       io.write("Force:  ", F, "\n")
 
       if F >= 0 then
