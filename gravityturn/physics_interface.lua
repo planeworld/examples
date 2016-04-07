@@ -1,5 +1,6 @@
-io.open("testfile.txt", "w")
-pwt= require "gravityturn/pwt"
+pwt= require "gravityturn.pwt"
+
+
 
 
 objects = {}
@@ -54,19 +55,15 @@ function physics_interface()
     time=pw.universe.get_time();
     frequency=1.0/luatime;
 
-    v_x, v_y = objects.rocket.get_velocity();
-    phi_v=math.atan(v_y, v_x)-math.pi/2.0;
+    velocity = objects.rocket.get_velocity();
+    phi_v=math.atan(velocity.y, velocity.x)-math.pi/2.0;
     
-    p_x, p_y = objects.rocket.get_position();
-    r_abs=math.sqrt(p_x^2+p_y^2)
-    e_r= {}
-    e_r["x"]=p_x/r_abs
-    e_r["y"]=p_y/r_abs
-    e_phi ={}
-    e_phi.x= e_r.y;
-    e_phi.y=-e_r.x;
-    v_r=e_r["x"]*v_x+e_r["y"]*v_y
-    v_phi=e_phi["x"]*v_x+e_phi["y"]*v_y
+    position = objects.rocket.get_position();
+    r_abs=position:norm();
+    e_r= position:direction()
+    e_phi = Vector:new({x=e_r.y; y=-e_r.x});
+    v_r=e_r*velocity
+    v_phi=e_phi*velocity
     io.write("Orbit Velocity at height " .. r_abs .. "m: ".. getOrbitVelocity(r_abs, objects.earth.mass) .. "\n")
     io.write("Current Velocity: ".. v_phi .. "m/s, " .. v_r .. "m/s\n");
 

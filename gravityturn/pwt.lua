@@ -1,3 +1,7 @@
+local pathOfThisFile = ...
+local folderOfThisFile = (...):match("(.-)[^%.]+$")
+
+Vector= require(folderOfThisFile .. 'vector');
 
 local pwt= {};
 pwt.universe={};
@@ -9,11 +13,15 @@ pwt.universe.get_object = function(name)
   object.inertia = pw.universe.get_inertia(name);
   
   object.get_position = function()
-    return pw.universe.get_position(name);
+    local vector = Vector:new()
+    vector.x, vector.y = pw.universe.get_position(name);
+    return vector;
   end
   
   object.get_velocity = function()
-    return pw.universe.get_velocity(name);
+    local vector = Vector:new()
+    vector.x, vector.y = pw.universe.get_velocity(name);
+    return vector;
   end
   
   object.get_angle = function()
