@@ -1,5 +1,5 @@
-pwt= require "gravityturn.pwt"
-
+pwt = require("gravityturn.pwt")
+astrodynamics = require("lua_modules.astrodynamics")
 
 
 
@@ -31,9 +31,7 @@ end
 
 objects.earth = pwt.universe.get_object("Earth");
 
-function getOrbitVelocity(radius, mass)
-  return math.sqrt(pw.universe.G * mass / radius)
-end
+
 
 phi_v_old=0.0;
 thrust=true;
@@ -59,19 +57,19 @@ function physics_interface()
     phi_v=math.atan(velocity.y, velocity.x)-math.pi/2.0;
     
     position = objects.rocket.get_position();
-    r_abs=position:norm();
+    height=position:norm();
     e_r= position:direction()
     e_phi = Vector:new({x=e_r.y; y=-e_r.x});
     v_r=e_r*velocity
     v_phi=e_phi*velocity
-    io.write("Orbit Velocity at height " .. r_abs .. "m: ".. getOrbitVelocity(r_abs, objects.earth.mass) .. "\n")
+    io.write("Orbit Velocity at height " .. height .. "m: ".. astrodynamics.getOrbitVelocity(height, objects.earth.mass) .. "\n")
     io.write("Current Velocity: ".. v_phi .. "m/s, " .. v_r .. "m/s\n");
 
     omega=(phi_v-phi_v_old)*frequency;
 --     if (v_r<0.0001) then
 --       pw.system.pause()
 --     end
---     if (v_phi>getOrbitVelocity(r_abs, objects.earth.mass)) then
+--     if (v_phi>astrodynamics.getOrbitVelocity(height, objects.earth.mass)) then
 --       pw.system.pause()
 --     end
       
