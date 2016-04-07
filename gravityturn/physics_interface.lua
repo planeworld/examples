@@ -1,8 +1,10 @@
+pwt = require("gravityturn.pwt")
+astrodynamics = require("lua_modules.astrodynamics")
+
+
 
 objects = {}
-objects.rocket = {}
-objects.rocket.mass = pw.universe.get_mass("RocketBody");
-objects.rocket.inertia = pw.universe.get_inertia("RocketBody");
+objects.rocket = pwt.universe.get_object("RocketBody");
 
 
 time=0.0;
@@ -16,10 +18,10 @@ P1=objects.rocket.inertia*frequency/12.0*0.1
 
 controller = function(phi, omega)
   local w=0.5;
-  local phi_current = pw.universe.get_angle("RocketBody")
+  local phi_current = objects.rocket.get_angle()
   local phi_e=phi-phi_current;
   local omega_phi=P2*phi_e
-  local omega_phi_current=pw.universe.get_angle_vel("RocketBody")
+  local omega_phi_current=objects.rocket.get_angle_vel()
   local omega_e=w*omega_phi+(1-w)*omega-omega_phi_current
   io.write("phi_e=" .. phi .. "-" .. phi_current .. "\n")
   io.write("omega_e=" .. omega .. "-" .. omega_phi_current .. "\n")
@@ -27,14 +29,23 @@ controller = function(phi, omega)
   return P1*omega_e;
 end
 
-earth_mass=pw.universe.get_mass("Earth");
+objects.earth = pwt.universe.get_object("Earth");
 
-function getOrbitVelocity(radius, mass)
-  return math.sqrt(pw.universe.G * mass / radius)
-end
+
 
 phi_v_old=0.0;
 thrust=true;
+
+thrusters={}
+thrusters.main=pwt.universe.get_component("MainThruster")
+thrusters.boosterleft=pwt.universe.get_component("BoosterLeft")
+thrusters.boosterright=pwt.universe.get_component("BoosterRight")
+thrusters.ccw1=pwt.universe.get_component("ControllerThrusterCounterClockwiseLeft")
+thrusters.ccw2=pwt.universe.get_component("ControllerThrusterCounterClockwiseRight")
+thrusters.cw1=pwt.universe.get_component("ControllerThrusterClockwiseLeft")
+thrusters.cw2=pwt.universe.get_component("ControllerThrusterClockwiseRight")
+
+
 
 function physics_interface()
     physics_frequency = pw.system.get_frequency()
@@ -42,50 +53,52 @@ function physics_interface()
     time=pw.universe.get_time();
     frequency=1.0/luatime;
 
-    v_x, v_y = pw.universe.get_velocity("RocketBody");
-    phi_v=math.atan(v_y, v_x)-math.pi/2.0;
+    velocity = objects.rocket.get_velocity();
+    phi_v=math.atan(velocity.y, velocity.x)-math.pi/2.0;
     
-    p_x, p_y = pw.universe.get_position("RocketBody");
-    r_abs=math.sqrt(p_x^2+p_y^2)
-    e_r= {}
-    e_r["x"]=p_x/r_abs
-    e_r["y"]=p_y/r_abs
-    e_phi ={}
-    e_phi.x= e_r.y;
-    e_phi.y=-e_r.x;
-    v_r=e_r["x"]*v_x+e_r["y"]*v_y
-    v_phi=e_phi["x"]*v_x+e_phi["y"]*v_y
-    io.write("Orbit Velocity at height " .. r_abs .. "m: ".. getOrbitVelocity(r_abs, earth_mass) .. "\n")
+    position = objects.rocket.get_position();
+    height=position:norm();
+    e_r= position:direction()
+    e_phi = Vector:new({x=e_r.y; y=-e_r.x});
+    v_r=e_r*velocity
+    v_phi=e_phi*velocity
+    io.write("Orbit Velocity at height " .. height .. "m: ".. astrodynamics.getOrbitVelocity(height, objects.earth.mass) .. "\n")
     io.write("Current Velocity: ".. v_phi .. "m/s, " .. v_r .. "m/s\n");
 
     omega=(phi_v-phi_v_old)*frequency;
-    
+--     if (v_r<0.0001) then
+--       pw.system.pause()
+--     end
+--     if (v_phi>astrodynamics.getOrbitVelocity(height, objects.earth.mass)) then
+--       pw.system.pause()
+--     end
+      
     
     if thrust then
-      F=controller(phi_v, 0.0);
+      F=controller(phi_v, omega);
       io.write("Force:  ", F, "\n")
 
       if F >= 0 then
-        pw.sim.deactivate_thruster("ControllerThrusterClockwiseRight")
-        pw.sim.deactivate_thruster("ControllerThrusterClockwiseLeft")
-        pw.sim.activate_thruster("ControllerThrusterCounterClockwiseRight", F/2.0)
-        pw.sim.activate_thruster("ControllerThrusterCounterClockwiseLeft", F/2.0)
+        thrusters.cw1.set_force(0.0);
+        thrusters.cw2.set_force(0.0);
+        thrusters.ccw1.set_force(F/2.0);
+        thrusters.ccw2.set_force(F/2.0);
       else
-        pw.sim.deactivate_thruster("ControllerThrusterCounterClockwiseRight")
-        pw.sim.deactivate_thruster("ControllerThrusterCounterClockwiseLeft")
-        pw.sim.activate_thruster("ControllerThrusterClockwiseRight", -F/2.0)
-        pw.sim.activate_thruster("ControllerThrusterClockwiseLeft", -F/2.0)
+        thrusters.ccw1.set_force(0.0);
+        thrusters.ccw2.set_force(0.0);
+        thrusters.cw1.set_force(-F/2.0);
+        thrusters.cw2.set_force(-F/2.0);
       end
 
       if v_r<0.0 then
         thrust=false
-        pw.sim.deactivate_thruster("ControllerThrusterCounterClockwiseRight")
-        pw.sim.deactivate_thruster("ControllerThrusterCounterClockwiseLeft")
-        pw.sim.deactivate_thruster("ControllerThrusterClockwiseRight")
-        pw.sim.deactivate_thruster("ControllerThrusterClockwiseLeft")
-        pw.sim.deactivate_thruster("MainThruster")
-        pw.sim.deactivate_thruster("BoosterRight")
-        pw.sim.deactivate_thruster("BoosterLeft")
+        thrusters.main.set_force(0.0);
+        thrusters.boosterleft.set_force(0.0);
+        thrusters.boosterright.set_force(0.0);
+        thrusters.cw1.set_force(0.0);
+        thrusters.cw2.set_force(0.0);
+        thrusters.ccw1.set_force(0.0);
+        thrusters.ccw2.set_force(0.0);
       end
     end
     phi_v_old=phi_v;
