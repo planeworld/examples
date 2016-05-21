@@ -17,10 +17,10 @@
         inertia="1.0"
     />
     <shape
-        type="shape_polyline"
+        type="shape_polygon"
         line_type="single"
         points=" -299792458.0,  0.0;
                           0.0, 0.0;">
-        <visuals type="shape_visuals_polyline"/>
+        <visuals type="shape_visuals_polygon"/>
     </shape>
 </object>

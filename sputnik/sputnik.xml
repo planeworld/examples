@@ -24,24 +24,24 @@
         <visuals type="shape_visuals_circle"/>
     </shape>
     <shape
-        type="shape_polyline"
+        type="shape_polygon"
         line_type="single"
         points=" -0.29,  0.0;
                  -0.50, -1.5;">
-        <visuals type="shape_visuals_polyline"/>
+        <visuals type="shape_visuals_polygon"/>
     </shape>
     <shape
-        type="shape_polyline"
+        type="shape_polygon"
         line_type="single"
         points="  0.00,  0.0;
                   0.00, -1.6;">
-        <visuals type="shape_visuals_polyline"/>
+        <visuals type="shape_visuals_polygon"/>
     </shape>
     <shape
-        type="shape_polyline"
+        type="shape_polygon"
         line_type="single"
         points="  0.29,  0.0;
                   0.50, -1.5;">
-        <visuals type="shape_visuals_polyline"/>
+        <visuals type="shape_visuals_polygon"/>
     </shape>
 </object>
