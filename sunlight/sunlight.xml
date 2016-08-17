@@ -3,7 +3,6 @@
     <core
         kinematics_reference=""
         name="Sunlight"
-        mass="1.0"
         origin_x="696300000.0"
         origin_y="0.0"
         dynamics="true"
@@ -18,7 +17,8 @@
     />
     <shape
         type="shape_polygon"
-        line_type="single"
+        polygon_type="line_single"
+        mass="1.0"
         points=" -299792458.0,  0.0;
                           0.0, 0.0;">
         <visuals type="shape_visuals_polygon"/>
