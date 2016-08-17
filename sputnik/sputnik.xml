@@ -17,34 +17,30 @@
     />
     <shape
         type="shape_circle"
-        mass="83.0"
+        mass="83.6"
         radius="0.29"
         center_x="0.0"
         center_y="0.0">
-        <visuals type="shape_visuals_circle"/>
     </shape>
     <shape
         type="shape_polygon"
-        mass="0.2"
+        mass="0.0"
         polygon_type="line_single"
         points=" -0.29,  0.0;
                  -0.50, -1.5;">
-        <visuals type="shape_visuals_polygon"/>
     </shape>
     <shape
         type="shape_polygon"
-        mass="0.2"
+        mass="0.0"
         polygon_type="line_single"
         points="  0.00,  0.0;
                   0.00, -1.6;">
-        <visuals type="shape_visuals_polygon"/>
     </shape>
     <shape
         type="shape_polygon"
-        mass="0.2"
+        mass="0.0"
         polygon_type="line_single"
         points="  0.29,  0.0;
                   0.50, -1.5;">
-        <visuals type="shape_visuals_polygon"/>
     </shape>
 </object>

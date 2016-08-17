@@ -19,6 +19,5 @@
         mass="1.0"
         points=" -299792458.0,  0.0;
                           0.0, 0.0;">
-        <visuals type="shape_visuals_polygon"/>
     </shape>
 </object>

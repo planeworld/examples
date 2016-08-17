@@ -2,7 +2,6 @@
 <object type="rigidbody">
     <core
         name="mars"
-        mass="6.4185e+23"
         origin_x="-195073519163.95682"
         origin_y="-135449636307.83136"
         velocity_x="15419.186410890201"
@@ -16,8 +15,8 @@
     <shape
         type="shape_circle"
         radius="3389900"
+        mass="6.4185e+23"
         center_x="0.0"
         center_y="0.0">
-        <visuals type="shape_visuals_circle"/>
     </shape>
 </object>

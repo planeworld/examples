@@ -2,7 +2,6 @@
 <object type="rigidbody">
     <core
         name="elara"
-        mass="undefined"
         origin_x="-334893430407.7792"
         origin_y="698929947171.0736"
         velocity_x="-15123.806724914304"
@@ -15,8 +14,8 @@
     <shape
         type="shape_circle"
         radius="40000"
+        mass="undefined"
         center_x="0.0"
         center_y="0.0">
-        <visuals type="shape_visuals_circle"/>
     </shape>
 </object>

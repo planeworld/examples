@@ -2,7 +2,6 @@
 <object type="rigidbody">
     <core
         name="sinope"
-        mass="undefined"
         origin_x="-368223113716.2957"
         origin_y="711416441976.7415"
         velocity_x="-13227.079040962355"
@@ -15,8 +14,8 @@
     <shape
         type="shape_circle"
         radius="14000"
+        mass="undefined"
         center_x="0.0"
         center_y="0.0">
-        <visuals type="shape_visuals_circle"/>
     </shape>
 </object>

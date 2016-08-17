@@ -2,11 +2,10 @@
 <object type="rigidbody">
     <core
         name="neptune"
-        mass="1.0241e+26"
         origin_x="4075020235815.2427"
         origin_y="-1871570521675.106"
-        velocity_x="2224.3555695347654"
-        velocity_y="4961.765573163729"
+        velocity_x="2224.355569535702"
+        velocity_y="4961.765573164074"
         dynamics="true"
         gravity="true"
     />
@@ -16,8 +15,8 @@
     <shape
         type="shape_circle"
         radius="24766000"
+        mass="1.0241e+26"
         center_x="0.0"
         center_y="0.0">
-        <visuals type="shape_visuals_circle"/>
     </shape>
 </object>
