@@ -1,3 +1,6 @@
+-- Work arround until pw provides this constant 
+pw.universe={}
+pw.universe.G=6.67408e-11
 
 local astrodynamics = {}
 
@@ -7,7 +10,7 @@ end
 
 astrodynamics.getGeostationaryOrbit = function(angle_velocity, mass)
   -- https://en.wikipedia.org/wiki/Geostationary_orbit
-  return (pw.universe.G * mass / angle_velocity)^(1.0/3.0);
+  return (pw.universe.G * mass / angle_velocity^2)^(1.0/3.0);
 end
 
 return astrodynamics

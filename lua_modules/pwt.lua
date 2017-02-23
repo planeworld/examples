@@ -9,27 +9,27 @@ pwt.universe={};
 pwt.universe.get_object = function(name)
   local object = {};
   object.name=name;
-  object.mass = pw.universe.get_mass(name);
-  object.inertia = pw.universe.get_inertia(name);
+  object.mass = pw.physics.get_mass(name);
+  object.inertia = pw.physics.get_inertia(name);
   
   object.get_position = function()
     local vector = Vector:new()
-    vector.x, vector.y = pw.universe.get_position(name);
+    vector.x, vector.y = pw.physics.get_position(name);
     return vector;
   end
   
   object.get_velocity = function()
     local vector = Vector:new()
-    vector.x, vector.y = pw.universe.get_velocity(name);
+    vector.x, vector.y = pw.physics.get_velocity(name);
     return vector;
   end
   
   object.get_angle = function()
-    return pw.universe.get_angle(name);
+    return pw.physics.get_angle(name);
   end
 
   object.get_angle_vel = function()
-    return pw.universe.get_angle_vel(name);
+    return pw.physics.get_angle_vel(name);
   end
   
   return object;
@@ -42,9 +42,9 @@ pwt.universe.get_component = function(name)
   
   object.set_force = function(force)
     if (force<0.0) then
-      pw.sim.deactivate_thruster(name);
+      pw.physics.deactivate_thruster(name);
     else
-      pw.sim.activate_thruster(name, force);
+      pw.physics.activate_thruster(name, force);
     end
   end
   
