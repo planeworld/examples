@@ -1,7 +1,7 @@
 local pathOfThisFile = ...
 local folderOfThisFile = (...):match("(.-)[^%.]+$")
 
-Vector= require(folderOfThisFile .. 'vector');
+vec= require(folderOfThisFile .. 'vector');
 
 local pwt= {};
 pwt.universe={};
@@ -13,15 +13,16 @@ pwt.universe.get_object = function(name)
   object.inertia = pw.physics.get_inertia(name);
   
   object.get_position = function()
-    local vector = Vector:new()
-    vector.x, vector.y = pw.physics.get_position(name);
+    local x,y;
+    x, y = pw.physics.get_position(name);
+    local vector=vec.Vector(x,y);
     return vector;
   end
   
   object.get_velocity = function()
-    local vector = Vector:new()
-    vector.x, vector.y = pw.physics.get_velocity(name);
-    return vector;
+    local x,y;
+    x, y = pw.physics.get_velocity(name);
+    return vec.Vector(x,y);
   end
   
   object.get_angle = function()
@@ -42,9 +43,9 @@ pwt.universe.get_component = function(name)
   
   object.set_force = function(force)
     if (force<0.0) then
-      pw.physics.deactivate_thruster(name);
+      pw.sim.deactivate_thruster(name);
     else
-      pw.physics.activate_thruster(name, force);
+      pw.sim.activate_thruster(name, force);
     end
   end
   
