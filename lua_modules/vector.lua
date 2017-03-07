@@ -74,7 +74,7 @@ local module = {}
 
 	mt.__eq = function(lhs, rhs)
 		--Equal To operator for vector2Ds
-		return (lhs.getX() == rhs.getX()) and (lhs.getY() == rhs.getY())
+		return (lhs:getX() == rhs:getX()) and (lhs:getY() == rhs:getY())
 	end
 	
 	mt.__lt = function(lhs, rhs)
