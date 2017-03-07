@@ -144,21 +144,58 @@ local module = {}
 
 	mt.__mul = function(lhs, rhs)
 		--Multiplication operator for Vectors
-		out = lhs:deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
-		out:setX(lhs:getX() * rhs:getX()) --Operate on the X property
-		out:setY(lhs:getY() * rhs:getY()) --Operate on the Y property
+		if type(lhs) == "number" then
+                  out = rhs:deepcopy(rhs)--Copy the operand for the output (else the output won't have metamethods)
+                  out:setX(lhs * rhs:getX())
+		  out:setY(lhs * rhs:getY())
+		elseif type(rhs) == "number" then
+                  out = lhs:deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
+                  out:setX(lhs:getX() * rhs)
+                  out:setY(lhs:getY() * rhs)
+                else
+                  out = lhs:deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
+                  out:setX(lhs:getX() * rhs:getX()) --Operate on the X property
+                  out:setY(lhs:getY() * rhs:getY()) --Operate on the Y property
+                end
+                
 		return out
 	end
 
-	mt.__div = function(lhs, rhs)
+        mt.__div = function(lhs, rhs)
 		--Division operator for Vectors
-		out = lhs:deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
-		out:setX(lhs:getX() / rhs:getX()) --Operate on the X property
-		out:setY(lhs:getY() / rhs:getY()) --Operate on the Y property
+		if type(lhs) == "number" then
+                  error ("Number divided by vector not supported.")
+		elseif type(rhs) == "number" then
+                  out = lhs:deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
+                  out:setX(lhs:getX() / rhs)
+                  out:setY(lhs:getY() / rhs)
+                else
+                  out = lhs:deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
+                  out:setX(lhs:getX() / rhs:getX()) --Operate on the X property
+                  out:setY(lhs:getY() / rhs:getY()) --Operate on the Y property
+                end
+                
 		return out
 	end
 	
-	mt.__mod = function(lhs, rhs)
+	mt.__pow = function(lhs, rhs)
+		--Power operator for Vectors, see http://www.euclideanspace.com/maths/algebra/vectors/vecAlgebra/powers/index.htm
+                
+                assert(rhs==math.floor(rhs), "Power of a dezimal number is not supported.");
+                local result;
+                
+                if (rhs%2==0) then -- rhs is even
+                  result=(lhs:getX()^2+lhs:getY()^2)^(rhs/2)
+                else -- rhs is even
+                  result=lhs*lhs^(rhs-1)
+                end
+		--out = lhs:deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
+		--out:setX(lhs:getX() / rhs:getX()) --Operate on the X property
+		--out:setY(lhs:getY() / rhs:getY()) --Operate on the Y property
+		return result
+	end
+
+        mt.__mod = function(lhs, rhs)
 		--Vector distance operator for Vectors. Denoted by modulo (%)
 		out = lhs:deepcopy(lhs)		--Copy the operand for the output (else the output won't have metamethods)
 		out:setX(math.abs(rhs:getX() - lhs:getX())) --Operate on the X property
