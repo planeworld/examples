@@ -39,4 +39,16 @@ describe('vector', function()
     assert.is.True(a==b);
   end)
 
+  it('less than', function()
+    local a=vec.Vector(1,4);
+    local b=vec.Vector(3,4);
+    assert.is.True(a<b);
+  end)
+
+  it('less or equal', function()
+    local a=vec.Vector(4,3);
+    local b=vec.Vector(3,4);
+    assert.is.True(a<=b);
+  end)
+
 end)
