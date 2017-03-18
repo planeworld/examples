@@ -9,28 +9,28 @@ pwt.universe={};
 pwt.universe.get_object = function(name)
   local object = {};
   object.name=name;
-  object.mass = pw.physics.get_mass(name);
-  object.inertia = pw.physics.get_inertia(name);
+  object.mass = pw.physics.obj_get_mass(name);
+  object.inertia = pw.physics.obj_get_inertia(name);
   
   object.get_position = function()
     local x,y;
-    x, y = pw.physics.get_position(name);
+    x, y = pw.physics.obj_get_position(name);
     local vector=vec.Vector(x,y);
     return vector;
   end
   
   object.get_velocity = function()
     local x,y;
-    x, y = pw.physics.get_velocity(name);
+    x, y = pw.physics.obj_get_velocity(name);
     return vec.Vector(x,y);
   end
   
   object.get_angle = function()
-    return pw.physics.get_angle(name);
+    return pw.physics.obj_get_angle(name);
   end
 
   object.get_angle_vel = function()
-    return pw.physics.get_angle_vel(name);
+    return pw.physics.obj_get_angle_vel(name);
   end
   
   return object;
