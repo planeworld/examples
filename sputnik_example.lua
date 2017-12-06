@@ -15,8 +15,8 @@ pw.system.create_universe(23479, 10000)
 idObjSputnik = pw.system.create_obj()
 --io.write(idObjSputnik)
 idShpSputnikBody = pw.system.create_shp("shp_circle")
-pw.physics.shp_set_radius(0.29)
-pw.physics.shp_set_mass(83.6)
+pw.physics.shp_set_radius(idShpSputnikBody, 0.29)
+pw.physics.shp_set_mass(idShpSputnikBody, 83.6)
 
 idShpSputnikAntenna1 = pw.system.create_shp("shp_polygon")
 pw.system.shp_set_vertices(idShpSputnikAntenna1,
@@ -73,8 +73,8 @@ pw.physics.obj_disable_dynamics(idObjEarth)
 -- Setup camera
 idCam01 = pw.system.create_camera()
 pw.system.cam_attach_to(idCam01, idObjSputnik)
-pw.system.cam_set_resolution_mpx(0.1)
-pw.system.cam_rotate_by(math.rad(-90))
+pw.system.cam_set_resolution_mpx(idCam01, 0.1)
+pw.system.cam_rotate_by(idCam01, math.rad(-90))
 
 
 -- Pause simulation
