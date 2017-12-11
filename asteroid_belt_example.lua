@@ -37,25 +37,27 @@ pw.physics.obj_disable_dynamics(idObjEarth)
 math.randomseed(1234)
 -- Create asteroids
 local asteroid = {}
-asteroid.radius_min = 30
-asteroid.radius_max = 300
+asteroid.radius_min = 300
+asteroid.radius_max = 3000
 asteroid.height_min = 1e7
 asteroid.height_max = 1.2e7
 local idObjAsteroid
 
 
-for i = 10,1,-1 
-do 
-   print(i) 
-end
-
-
 for i=1,100,1 do
   io.write(i)
   idObjAsteroid = pw.system.create_obj()
-  idShpAsteroid = pw.system.create_shp("shp_circle")
-  pw.physics.shp_set_radius(idShpAsteroid, math.random(asteroid.radius_min, asteroid.radius_max))
-  pw.physics.shp_set_mass(idShpAsteroid, 83.6)
+  
+  idShpAsteroid = pw.system.create_shp("shp_polygon")
+  local vertices = {}
+  for j=1,8,1 do
+    local angle = 2*math.pi/8*j
+    local radius = math.random(asteroid.radius_min, asteroid.radius_max)
+    table.insert(vertices, radius * math.sin(angle))
+    table.insert(vertices, radius * math.cos(angle))
+  end
+  pw.system.shp_set_vertices(idShpAsteroid, vertices)
+  
   pw.system.obj_add_shp(idObjAsteroid, idShpAsteroid)
 
 
@@ -65,18 +67,15 @@ for i=1,100,1 do
   local velocity = math.sqrt(astrodynamics.G*earth.mass/orbit_height)
   pw.physics.obj_set_position(idObjAsteroid, orbit_height * math.sin(angle), orbit_height * math.cos(angle))
   pw.physics.obj_set_velocity(idObjAsteroid, velocity * math.cos(angle), - velocity * math.sin(angle))
-  --pw.physics.obj_set_angle_vel(idObjSputnik, 0.0010158408908653759)
+  pw.physics.obj_set_angle_vel(idObjAsteroid, math.random()-0.5)
 end
-
-
 
 
 
 -- Setup camera
 idCam01 = pw.system.create_camera()
---pw.system.cam_attach_to(idCam01, idObjAsteroid)
+-- pw.system.cam_attach_to(idCam01, idObjAsteroid)
 pw.system.cam_set_resolution_mpx(idCam01, 50000)
---pw.system.cam_rotate_by(idCam01, math.rad(-90))
 
 
 -- Pause simulation
