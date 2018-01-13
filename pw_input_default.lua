@@ -134,6 +134,8 @@ pw.system.key_action = {
                     [3]  = function() pw.system.decelerate_time() end,
                     [56] = function() pw.system.decelerate_time() end,
                     [68] = function() pw.system.decelerate_time() end,
+    -- f        Toggles bounding box visualisation (on/off)
+                    [5] = function() pw.system.toggle_fullscreen() end,
     -- g        Toggles universe grid visualisation (on/off)
                     [6] = function() pw.visuals.toggle_grid() end,
     -- k        Toggles kinematic states visualisation (on/off)
@@ -154,8 +156,6 @@ pw.system.key_action = {
                     [28] = function() pw.system.toggle_timer(2) end,
     -- Num3     Toggles timer 3 (start/stop)
                     [29] = function() pw.system.toggle_timer(3) end,
-    -- ESC      Quit planeworld
-                    [36] = function() pw.system.quit() end,
     -- Space    Processes a single simulation step 
                     [57] = function() pw.system.process_one_frame() end,
     -- Return   Reset time acceleration to real time (factor 1)

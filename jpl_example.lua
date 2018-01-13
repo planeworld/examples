@@ -13,7 +13,7 @@ pw.system.set_frequency_visuals(60)
 pw.system.set_data_path_visuals("./")
 pw.system.create_universe(23479, 10000)
 
--- Create earth
+-- Load solar system
 require('jpl_data.sun')
 require('jpl_data.mercury')
 require('jpl_data.venus')
