@@ -40,7 +40,7 @@ pw.physics.obj_disable_gravitation(idObjRocket)
 pw.physics.obj_set_com(idObjRocket, 0,0);
 
 --local inertia = pw.physics.obj_get_inertia(idObjRocket)
-
+--local centerofmass = pw.physics.obj_get_com(idObjRocket)
 
 
 -- Create main thruster
@@ -102,7 +102,7 @@ local setYawThrust = function(thrust)
     pw.sim.thruster_deactivate(idNavThrusterBR)
   end
 end
-setYawThrust(0)
+
 
 local sum_error = 0
 
