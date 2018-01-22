@@ -7,6 +7,10 @@ pw.system.set_frequency_lua(30)
 pw.system.set_frequency_physics(200)
 pw.system.set_frequency_visuals(60)
 pw.system.set_data_path_visuals("./")
+
+-- pw.system.init_visuals()
+-- pw.system.init_physics()
+
 pw.visuals.toggle_grid()
 pw.system.toggle_fullscreen()
 
@@ -51,16 +55,37 @@ local callController = function()
 
 end
 
-pw.system.key_action[57] = function ()
-  pw.system.win_close(idWin01);
+local testqueue = {}
+
+table.insert(testqueue, function ()
+  pw.system.widget_set_text(idWdg01, "Pressing spacebar again switches to next test")
   pw.physics.obj_set_angle(idObjArrow, math.rad(180))
   callController = function()
     Rocket.yawcontroller(math.rad(90))
   end
-end;
+  pw.system.key_action[57]=table.remove(testqueue, 1)
+end
+)
+
+table.insert(testqueue, function ()
+  pw.system.widget_set_text(idWdg01, "Pressing spacebar again switches to next test")
+  pw.physics.obj_set_angle(idObjArrow, math.rad(0))
+  callController = function()
+    Rocket.yawcontroller(math.rad(-90))
+  end
+  pw.system.key_action[57]=table.remove(testqueue, 1)
+end
+)
+
+
+
+pw.system.key_action[57] = table.remove(testqueue, 1)
+
+
+
 
 -- Pause simulation
---pw.system.pause()
+pw.system.pause()
 
 -- Setup callback functions
 pw.system.register_lua_callback("e_lua_update", "update")

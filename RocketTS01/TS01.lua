@@ -63,25 +63,25 @@ local max_nav_thrust = 100000
 local idNavThrusterTL = pw.system.create_thruster()
 pw.system.thruster_set_object(idNavThrusterTL, idObjRocket)
 pw.physics.thruster_set_origin(idNavThrusterTL, -2.7, 10)
-pw.physics.thruster_set_angle(idNavThrusterTL, math.rad(0-90))
+pw.physics.thruster_set_angle(idNavThrusterTL, math.rad(0))
 pw.physics.thruster_set_thrust_max(idNavThrusterTL, max_nav_thrust/2)
 
 local idNavThrusterBL = pw.system.create_thruster()
 pw.system.thruster_set_object(idNavThrusterBL, idObjRocket)
 pw.physics.thruster_set_origin(idNavThrusterBL, -2.7, -10)
-pw.physics.thruster_set_angle(idNavThrusterBL, math.rad(0-90))
+pw.physics.thruster_set_angle(idNavThrusterBL, math.rad(0))
 pw.physics.thruster_set_thrust_max(idNavThrusterBL, max_nav_thrust/2)
 
 local idNavThrusterTR = pw.system.create_thruster()
 pw.system.thruster_set_object(idNavThrusterTR, idObjRocket)
 pw.physics.thruster_set_origin(idNavThrusterTR, 2.7, 10)
-pw.physics.thruster_set_angle(idNavThrusterTR, math.rad(180-90))
+pw.physics.thruster_set_angle(idNavThrusterTR, math.rad(180))
 pw.physics.thruster_set_thrust_max(idNavThrusterTR, max_nav_thrust/2)
 
 local idNavThrusterBR = pw.system.create_thruster()
 pw.system.thruster_set_object(idNavThrusterBR, idObjRocket)
 pw.physics.thruster_set_origin(idNavThrusterBR, 2.7, -10)
-pw.physics.thruster_set_angle(idNavThrusterBR, math.rad(180-90))
+pw.physics.thruster_set_angle(idNavThrusterBR, math.rad(180))
 pw.physics.thruster_set_thrust_max(idNavThrusterBR, max_nav_thrust/2)
 
 local setYawThrust = function(thrust)
@@ -103,9 +103,10 @@ local setYawThrust = function(thrust)
   end
 end
 
-
+setYawThrust(0)
+  
+  
 local sum_error = 0
-
 
 local yawcontroller = function(target_angle)
   local current_angle = pw.physics.obj_get_angle(idObjRocket)
@@ -132,14 +133,19 @@ local yawcontroller = function(target_angle)
   
 end
 
+local calcTimes = function (current_angle_vel, angle_accel, delta_angle)
+  local t1 = - 3/2 * current_angle_vel / angle_accel + math.sqrt( 7/4 * current_angle_vel^2 / angle_accel^2 + delta_angle / angle_accel )
+  local t2 = 2*t1 + current_angle_vel / angle_accel
+  return {t1,t2}
+end
 
 local yawcontroller2 = function(target_angle)
   local current_angle = pw.physics.obj_get_angle(idObjRocket)
   local delta_angle = target_angle - current_angle
   if delta_angle < - math.pi then
-    delta_angle = delta_angle + math.pi
+    delta_angle = delta_angle + 2* math.pi
   elseif delta_angle > math.pi then
-    delta_angle = delta_angle - math.pi
+    delta_angle = delta_angle - 2* math.pi
   end
   io.write("Angle Error: ", delta_angle, "\n")
 
@@ -156,18 +162,37 @@ local yawcontroller2 = function(target_angle)
   io.write("Inertia: ", inertia, "\n")
   local angle_accel = max_nav_thrust*10 / inertia
   io.write("Angle acceleration: ", angle_accel, "\n")
-  local t1 = - 3/2 * current_angle_vel / angle_accel + math.sqrt( 7/4 * current_angle_vel^2 / angle_accel^2 + delta_angle / angle_accel )
-  io.write("t1= ", t1, "\n")
   
-  if t1>0 then
-    thrust = max_nav_thrust
+  local tl, tr;
+  if delta_angle > 0 then 
+    tl = calcTimes(current_angle_vel, angle_accel, delta_angle)
+    tr = calcTimes(current_angle_vel, -angle_accel, delta_angle - 2 * math.pi)
   else
-    thrust = -max_nav_thrust
+    tl = calcTimes(current_angle_vel, angle_accel, delta_angle + 2 * math.pi)    
+    tr = calcTimes(current_angle_vel, -angle_accel, delta_angle)
+  end
+
+  io.write("Rotate counter clockwise: t1= ", tl[1], " t2= ", tl[2], "\n")
+  io.write("Rotate clockwise        : t1= ", tr[1], " t2= ", tr[2], "\n")
+  
+  if tl[2]<tr[2] then
+    if tl[1] > 0 then 
+      thrust = max_nav_thrust
+    else
+      thrust = -max_nav_thrust
+    end
+  else
+    if tl[1] > 0 then 
+      thrust = -max_nav_thrust
+    else
+      thrust = max_nav_thrust
+    end
   end
   io.write("Thrust: ", thrust, "\n")
   setYawThrust(thrust)
   
 end
+
 
 
 M.Id=idObjRocket
