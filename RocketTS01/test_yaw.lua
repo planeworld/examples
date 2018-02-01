@@ -34,7 +34,7 @@ pw.system.obj_add_shp(idObjArrow, idShpArrow2)
 
 pw.physics.obj_set_angle(idObjArrow, math.rad(90))
 
-Rocket = require('RocketTS01/TS01')
+Rocket = require('RocketTS01.TS01')
 
 -- Setup main camera
 idCam01 = pw.system.create_camera()
