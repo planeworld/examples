@@ -8,8 +8,8 @@ pw.system.set_frequency_physics(200)
 pw.system.set_frequency_visuals(60)
 pw.system.set_data_path_visuals("./")
 
--- pw.system.init_visuals()
--- pw.system.init_physics()
+pw.system.init_visuals()
+pw.system.init_physics()
 
 pw.visuals.toggle_grid()
 pw.system.toggle_fullscreen()
