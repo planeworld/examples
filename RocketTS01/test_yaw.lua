@@ -12,7 +12,7 @@ pw.system.init_visuals()
 pw.system.init_physics()
 
 pw.visuals.toggle_grid()
-pw.system.toggle_fullscreen()
+--pw.system.toggle_fullscreen()
 
 
 -- Create Arrow
@@ -45,7 +45,7 @@ pw.system.cam_set_resolution_pxm(idCam01, 10)
 -- Create a text window
 idWin01=pw.system.create_window()
 idWdg01=pw.system.create_widget("text")
-pw.system.widget_set_text(idWdg01, "In the first test, the rocket shall rotate 90deg. The arrow visualises the desired orientation. \n \n Press spacebar to start")
+pw.system.widget_set_text(idWdg01, "This example includes several test of the yaw controller. Pressing the space bar will start the next test.")
 pw.system.win_set_widget(idWin01, idWdg01)
 pw.system.win_set_title(idWin01, "Test Yaw Controller")
 --pw.system.win_center_keep(idWin01)
@@ -58,7 +58,8 @@ end
 local testqueue = {}
 
 table.insert(testqueue, function ()
-  pw.system.widget_set_text(idWdg01, "Pressing spacebar again switches to next test")
+    pw.system.resume()
+  pw.system.widget_set_text(idWdg01, "In this test, the rocket shall rotate to a specific angle. The controller uses the fastes solution (e.g. if the rocket already roatates, the controller might accelerate in this direction, although the angle is larger.")
   pw.physics.obj_set_angle(idObjArrow, math.rad(180))
   callController = function()
     Rocket.yawcontroller(math.rad(90))
@@ -68,10 +69,20 @@ end
 )
 
 table.insert(testqueue, function ()
-  pw.system.widget_set_text(idWdg01, "Pressing spacebar again switches to next test")
+  pw.system.widget_set_text(idWdg01, "Same controller with another angle.")
   pw.physics.obj_set_angle(idObjArrow, math.rad(0))
   callController = function()
     Rocket.yawcontroller(math.rad(-90))
+  end
+  pw.system.key_action[57]=table.remove(testqueue, 1)
+end
+)
+
+table.insert(testqueue, function ()
+  pw.system.widget_set_text(idWdg01, "Now, the rocket shall perform a constant rotation.")
+  pw.physics.obj_set_angle_vel(idObjArrow, math.rad(10))
+  callController = function()
+    Rocket.yawcontroller_angle_vel(math.rad(10))
   end
   pw.system.key_action[57]=table.remove(testqueue, 1)
 end
