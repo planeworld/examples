@@ -1,4 +1,4 @@
-local vec = require('planworld.vector')
+local vec = require('planeworld.vector')
 
 describe('vector', function()
   it('adds vectors', function()
