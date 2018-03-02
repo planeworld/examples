@@ -1,5 +1,9 @@
 local pathOfThisFile = ...
-local folderOfThisFile = (...):match("(.-)[^%.]+$")
+require("string")
+io.write(pathOfThisFile)
+--local folderOfThisFile = pathOfThisFile:match("(.-)[^%.]+$")
+io.write(string)
+local folderOfThisFile = pathOfThisFile:match(".*")
 
 vec= require(folderOfThisFile .. 'vector');
 

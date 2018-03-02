@@ -1,12 +1,11 @@
-  -- Import input script
-require('../pw_input_default')
+-- Import input script
+require('planeworld/pw_input_default')
 
 -- Setup engine
 pw.system.set_frequency_input(100)
 pw.system.set_frequency_lua(30)
 pw.system.set_frequency_physics(200)
 pw.system.set_frequency_visuals(60)
-pw.system.set_data_path_visuals("./")
 
 pw.system.init_visuals()
 pw.system.init_physics()

@@ -1,16 +1,15 @@
 
         
 -- Import input script
-require('pw_input_default')
+require('planeworld/pw_input_default')
 
-astrodynamics = require('lua_modules.astrodynamics')
+astrodynamics = require('planeworld.astrodynamics')
 
 -- Setup engine
 pw.system.set_frequency_input(100)
 pw.system.set_frequency_lua(30)
 pw.system.set_frequency_physics(200)
 pw.system.set_frequency_visuals(60)
-pw.system.set_data_path_visuals("./")
 pw.system.create_universe(23479, 10000)
 
 pw.system.init_visuals()
@@ -48,7 +47,6 @@ local idObjAsteroid
 
 
 for i=1,100,1 do
-  io.write(i)
   idObjAsteroid = pw.system.create_obj()
   
   idShpAsteroid = pw.system.create_shp("shp_polygon")

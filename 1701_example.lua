@@ -1,14 +1,13 @@
 -- Sputnik orbiting the earth
         
 -- Import input script
-require('pw_input_default')
+require('planeworld/pw_input_default')
 
 -- Setup engine
 pw.system.set_frequency_input(100)
 pw.system.set_frequency_lua(30)
 pw.system.set_frequency_physics(200)
 pw.system.set_frequency_visuals(60)
-pw.system.set_data_path_visuals("./")
 pw.system.create_universe(23479, 10000)
 
 pw.system.init_visuals()
