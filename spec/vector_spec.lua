@@ -1,4 +1,4 @@
-local vec = require('lua_modules.vector')
+local vec = require('planworld.vector')
 
 describe('vector', function()
   it('adds vectors', function()

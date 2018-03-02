@@ -1,5 +1,5 @@
-local ad = require('lua_modules.astrodynamics')
-local vec = require('lua_modules.vector')
+local ad = require('planeworld.astrodynamics')
+local vec = require('planeworld.vector')
 
 
 local data = {};
